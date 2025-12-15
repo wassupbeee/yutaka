@@ -128,6 +128,7 @@
           "https://drive.google.com/thumbnail?id=1XxtNehIOwcmxAcG0jFOdFTJMZqxhnvoN&sz=w1000",
           "https://drive.google.com/thumbnail?id=1HUvYXr8EEZApgfpWXO_EZo1DdRIgahyz&sz=w1000"
         ];
+        // ロゴ画像のID定義
         const LOGO_URL = "https://drive.google.com/thumbnail?id=1bbgYcasYY0IjXxQbfBHlgSFr3u-7DTk_&sz=w1000";
 
         // ギャラリー画像
@@ -166,6 +167,7 @@
           const steps = [
             { id: "01", title: "カウンセリング", desc: "現在のお身体の悩みや食生活、運動習慣について丁寧にお伺いします。", image: "https://drive.google.com/thumbnail?id=1F1GuI4rj1NacULTh4kiYMYlyY2rPZlXQ&sz=w1000" },
             { id: "02", title: "姿勢診断", desc: "数多くのお客様を指導してきた経験に基づき、姿勢の歪みや筋肉のバランスを詳細に分析。根本的な不調の原因を探ります。", image: "https://drive.google.com/thumbnail?id=1dQOEscyvrYEwxjLPR56XosKapf5tS0z1&sz=w1000" }, 
+            // 説明文から「レンタルウェア完備」を削除
             { id: "03", title: "体験トレーニング", desc: "古民家の落ち着いた空間で、実際のパーソナルトレーニングを体験。", image: "https://drive.google.com/thumbnail?id=1a42N8bVNq9C3gMNnfu1QXHeitK0_qEUq&sz=w1000" },
             { id: "04", title: "フィードバック", desc: "トレーニングの感想を伺いながら、ご自宅でできるケア方法などもアドバイス。", image: "https://drive.google.com/thumbnail?id=1yXFebDzTHNK_xjhTdTo2eBDRb0q5C8aM&sz=w1000" }
           ];
@@ -199,16 +201,20 @@
 
         const ComparisonTable = () => {
           const data = [
-            { label: "入会金", yutaka: (<div><span className="text-xs text-gray-500 line-through">22,000円</span><br/><span className="text-red-600 text-2xl">0円</span><span className="text-xs text-gray-500 block">(キャンペーン)</span></div>), a: "33,000円", b: "55,000円" },
-            { label: "体験トレーニング", yutaka: (<div><span className="text-xs text-gray-500 line-through">3,000円</span><br/><span className="text-red-600 text-2xl">0円</span></div>), a: "5,500円", b: "11,000円" },
+            // 入会金: 24200->11000に変更
+            { label: "入会金", yutaka: (<div><span className="text-xs text-gray-500 line-through">11,000円</span><br/><span className="text-red-600 text-2xl">0円</span><span className="text-xs text-gray-500 block">(キャンペーン)</span></div>), a: "33,000円", b: "55,000円" },
+            { label: "体験トレーニング", yutaka: (<div><span className="text-xs text-gray-500 line-through">3,300円</span><br/><span className="text-red-600 text-2xl">0円</span></div>), a: "5,500円", b: "11,000円" },
             { label: "トレーナー", yutaka: "大会入賞者 / 元大手ジム", a: "一般トレーナー", b: "一般トレーナー" },
             { label: "トレーニング環境", yutaka: "完全個室", a: "個室", b: "オープンスペース" },
             { label: "一度にとれる予約数", yutaka: "3回まで", a: "2回", b: "1回" }, 
             { label: "音楽・BGM", yutaka: (<div className="font-bold text-[#d9a520]">好きな音楽<br/><span className="text-xs text-gray-600">(スピーカー爆音OK!)</span></div>), a: "店舗BGM", b: "店舗BGM" },
             { label: "予約方法", yutaka: "LINE / インスタ / 電話", a: "Webフォーム / 電話", b: "LINEのみ" },
             { label: "食事指導", yutaka: "無料 (LINE)", a: "有料オプション", b: "コースのみ" },
-            { label: "レンタルウェア", yutaka: "無料 (手ぶらOK)", a: "無料", b: "有料" },
-            { label: "契約期間縛り", yutaka: "なし (1回からOK)", a: "3ヶ月〜", b: "6ヶ月〜" },
+            // レンタルウェア -> 水に変更し、無料に。他社は有料
+            { label: "水", yutaka: "無料", a: "有料", b: "有料" },
+            // 契約期間: スタンダードあり、回数券なし
+            { label: "契約期間縛り", yutaka: (<div><span className="text-xs">回数券:</span>なし<br/><span className="text-xs">スタンダード:</span>あり</div>), a: "3ヶ月〜", b: "6ヶ月〜" },
+            { label: "駐車場", yutaka: "無料完備", a: "なし", b: "有料" },
           ];
           return (
             <section className="py-20 px-4 md:px-20 bg-white">
@@ -216,6 +222,7 @@
                 <div className="text-center mb-12">
                   <span className="text-[#2F4F4F] text-xs tracking-[0.5em] font-bold block mb-6 uppercase">Comparison</span>
                   <h2 className="text-3xl md:text-4xl serif text-gray-900 font-medium tracking-wide">他社との比較</h2>
+                  <p className="text-xs text-gray-400 mt-2 text-right">※金額はすべて税込表示</p>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse shadow-lg rounded-sm overflow-hidden min-w-[600px]">
@@ -267,14 +274,19 @@
 
         const FAQ = ({ onBack }) => {
           const faqs = [
-            { category: "料金について", items: [{ q: "なぜこんなに安いのですか？", a: "「豊」は大手ジムのようにテナント料がかからない自宅兼施設で運営しており、加盟金なども発生しないため、余計なコストをカットしお客様に還元しています。" }] },
+            // 安さの理由: 修正
+            { category: "料金について", items: [{ q: "なぜこんなに安いのですか？", a: "駅から離れている立地であることや、フランチャイズのような加盟金・転勤などがなく、その分テナント料などの固定費を抑えられているため、お客様に還元できています。" }] },
             { category: "トレーニングについて", items: [
               { q: "運動経験がなくても大丈夫ですか？", a: "はい、会員様の8割以上が未経験スタートです。完全マンツーマンで丁寧にサポートします。" },
-              { q: "一回のトレーニング時間は？", a: "基本60分となります。お着替えの時間などは含まれませんので、たっぷりトレーニングいただけます。" }, 
-              { q: "必要な持ち物は？", a: "ウェア、シューズ、タオルは無料レンタル完備。手ぶらでお越しください。" }
+              // トレーニング時間: 60分のみに
+              { q: "一回のトレーニング時間は？", a: "60分となります。" }, 
+              { q: "必要な持ち物は？", a: "ウェア、タオル、シューズのご持参をお願いいたします。" } 
             ] },
-            { category: "食事指導について", items: [{ q: "厳しい食事制限はありますか？", a: "極端な制限は推奨していません。3食食べながら健康的に痩せる方法をご提案します。" }] },
-            { category: "お支払いについて", items: [{ q: "支払い方法は？", a: "現金、銀行振込、各種クレジットカードがご利用いただけます。" }] } 
+            { category: "食事指導について", items: [{ q: "厳しい食事制限はありますか？", a: "お客様の生活スタイルに合わせて、お食事のメニューを提案させて頂きます。" }] }, 
+            { category: "お支払い・その他について", items: [
+                { q: "支払い方法は？", a: "現金、銀行振込、各種クレジットカードがご利用いただけます。" },
+                { q: "駐車場はありますか？", a: "はい、無料駐車場を完備しております。お車でお気軽にお越しください。" }
+            ] }
           ];
           return (
             <div className="min-h-screen bg-[#fcfbf9] pt-32 pb-20 px-6">
@@ -301,15 +313,33 @@
           const voices = [
             { 
               id: "01", 
-              name: "りんごちゃん様", 
+              name: "R様", 
               age: "52歳", 
               gender: "女性", 
               job: "", 
-              // 新しい画像URLに差し替え
+              // 元の指定画像に戻す
               image: "https://drive.google.com/thumbnail?id=15zaj0OM8CxjLo35al9xwNAy8MFIOWXpL&sz=w1000", 
               comment: "長年の腰痛・肩の痛みから解放されたい、正しい体の動かし方を学びたいと入会。なんと最初の体験で腰痛が解消！ これが継続の決め手となりました。継続の結果、筋肉量が確実に増量し、痛みから解放された日々を送っています。豊ジムの魅力は、単なるトレーニングではなく、体の不調の原因と改善アドバイスを丁寧に教えてもらえること。トレーナーへの感謝しかありません。自分に自信を持ちたい方、長年の不調を根本から改善したい方に心からお勧めします。" 
             },
-            { id: "02", name: "K.M", age: "35歳", gender: "男性", job: "経営者", image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1000&auto=format&fit=crop", comment: "プロのトレーナーが正しいフォームを一から丁寧に教えてくれるので、怪我の心配もなく効率的に筋肉がつきました。" }
+            { 
+              id: "02", 
+              name: "K様", 
+              age: "40代", 
+              gender: "男性", 
+              job: "", 
+              image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1000&auto=format&fit=crop", 
+              comment: "毎日ジムに通っていたが身体が変わらず。パーソナルを始めました。週2回程度のトレーニングでも大きく変化し筋肉もかなり付きました！正しいフォームや食事指導を細かく学べて満足です！" 
+            },
+            { 
+              id: "03", 
+              name: "W様", 
+              age: "50代", 
+              gender: "女性", 
+              job: "", 
+              // 女性の画像
+              image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1000&auto=format&fit=crop", 
+              comment: "運動嫌いでしたが、トレーナーの気さくな人柄と、やる気にさせる言葉のおかげで続けられました。楽しいだけではなく、丁寧な食事管理は、過度な節制は無く今後も続けられそうです。" 
+            }
           ];
           return (
             <div className="min-h-screen bg-[#fcfbf9] pt-32 pb-20 px-6">
@@ -352,7 +382,7 @@
         };
 
         const BookingForm = ({ onBack }) => {
-          const [formData, setFormData] = useState({ store: '', name: '', furigana: '', gender: 'male', age: '', email: '', phone: '', plan: 'free_trial', date1: '', time1: '', date2: '', time2: '', message: '', agreed: false });
+          const [formData, setFormData] = useState({ name: '', furigana: '', gender: 'male', age: '', email: '', phone: '', plan: 'free_trial', date1: '', time1: '', date2: '', time2: '', message: '', agreed: false });
           const [isSubmitted, setIsSubmitted] = useState(false);
           const handleChange = (e) => { const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value; setFormData({ ...formData, [e.target.name]: value }); };
           const handleSubmit = (e) => { e.preventDefault(); setTimeout(() => { setIsSubmitted(true); window.scrollTo(0, 0); }, 500); };
@@ -376,14 +406,14 @@
                 <div className="mb-10"><button onClick={onBack} className="text-gray-500 hover:text-[#2F4F4F] flex items-center gap-2 mb-4"><ChevronRight className="rotate-180" size={16} /> 戻る</button><h2 className="text-3xl serif text-[#2F4F4F] border-l-4 border-[#8c7b6c] pl-4">体験予約・お問い合わせ</h2></div>
                 <form onSubmit={handleSubmit} className="bg-white p-8 md:p-12 rounded-sm shadow-lg text-sm">
                   <div className="grid grid-cols-1 gap-y-8">
-                     <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center"><div className="md:col-span-3"><label className="font-bold text-gray-700">ご希望店舗<RequiredLabel /></label></div><div className="md:col-span-9"><select name="store" className="w-full p-3 border border-gray-200 rounded-sm bg-[#f5f5f5] focus:outline-none focus:border-[#2F4F4F]" value={formData.store} onChange={handleChange} required><option value="">都道府県を選択</option><option value="千葉県">千葉県</option><option value="東京都">東京都</option></select></div></div>
+                     {/* ご希望店舗選択を削除 */}
                      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center"><div className="md:col-span-3"><label className="font-bold text-gray-700">お名前<RequiredLabel /></label></div><div className="md:col-span-9"><input type="text" name="name" placeholder="山田 太郎" className="w-full p-3 border border-gray-200 rounded-sm bg-red-50 focus:outline-none focus:border-[#2F4F4F]" value={formData.name} onChange={handleChange} required /></div></div>
                      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center"><div className="md:col-span-3"><label className="font-bold text-gray-700">フリガナ<RequiredLabel /></label></div><div className="md:col-span-9"><input type="text" name="furigana" className="w-full p-3 border border-gray-200 rounded-sm bg-[#f5f5f5] focus:outline-none focus:border-[#2F4F4F]" value={formData.furigana} onChange={handleChange} required /></div></div>
                      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center"><div className="md:col-span-3"><label className="font-bold text-gray-700">性別<RequiredLabel /></label></div><div className="md:col-span-9 flex items-center gap-6"><label className="flex items-center gap-2 cursor-pointer"><input type="radio" name="gender" value="male" className="accent-[#2F4F4F]" checked={formData.gender === 'male'} onChange={handleChange} /> 男性</label><label className="flex items-center gap-2 cursor-pointer"><input type="radio" name="gender" value="female" className="accent-[#2F4F4F]" checked={formData.gender === 'female'} onChange={handleChange} /> 女性</label></div></div>
                      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center"><div className="md:col-span-3"><label className="font-bold text-gray-700">年齢</label></div><div className="md:col-span-9"><select name="age" className="w-full md:w-1/3 p-3 border border-gray-200 rounded-sm bg-[#f5f5f5] focus:outline-none focus:border-[#2F4F4F]" value={formData.age} onChange={handleChange}><option value="">選択してください</option><option value="10s">10代</option><option value="20s">20代</option><option value="30s">30代</option><option value="40s">40代</option><option value="50s">50代</option><option value="60s">60代以上</option></select></div></div>
                      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center"><div className="md:col-span-3"><label className="font-bold text-gray-700">メールアドレス<RequiredLabel /></label></div><div className="md:col-span-9"><input type="email" name="email" placeholder="info@xxxxx.xxx" className="w-full p-3 border border-gray-200 rounded-sm bg-red-50 focus:outline-none focus:border-[#2F4F4F]" value={formData.email} onChange={handleChange} required /></div></div>
                      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center"><div className="md:col-span-3"><label className="font-bold text-gray-700">電話番号<RequiredLabel /></label><span className="text-xs text-gray-400 block mt-1">ハイフン無しで入力してください</span></div><div className="md:col-span-9"><input type="tel" name="phone" placeholder="09012345678" className="w-full p-3 border border-gray-200 rounded-sm bg-red-50 focus:outline-none focus:border-[#2F4F4F]" value={formData.phone} onChange={handleChange} required /></div></div>
-                     <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start pt-2"><div className="md:col-span-3 pt-2"><label className="font-bold text-gray-700">ご希望のプラン<RequiredLabel /></label></div><div className="md:col-span-9"><div className="balloon">レンタルウェア完備！手ぶらでOK！</div><div className="flex flex-col gap-3"><label className="flex items-center gap-2 cursor-pointer font-bold"><input type="radio" name="plan" value="free_trial" className="accent-[#2F4F4F]" checked={formData.plan === 'free_trial'} onChange={handleChange} /> 初回限定！無料体験(カウンセリング込み)</label><label className="flex items-center gap-2 cursor-pointer"><input type="radio" name="plan" value="counseling" className="accent-[#2F4F4F]" checked={formData.plan === 'counseling'} onChange={handleChange} /> 無料カウンセリング</label><label className="flex items-center gap-2 cursor-pointer"><input type="radio" name="plan" value="inquiry" className="accent-[#2F4F4F]" checked={formData.plan === 'inquiry'} onChange={handleChange} /> お問い合わせ</label></div></div></div>
+                     <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start pt-2"><div className="md:col-span-3 pt-2"><label className="font-bold text-gray-700">ご希望のプラン<RequiredLabel /></label></div><div className="md:col-span-9"><div className="flex flex-col gap-3"><label className="flex items-center gap-2 cursor-pointer font-bold"><input type="radio" name="plan" value="free_trial" className="accent-[#2F4F4F]" checked={formData.plan === 'free_trial'} onChange={handleChange} /> 初回限定！無料体験(カウンセリング込み)</label><label className="flex items-center gap-2 cursor-pointer"><input type="radio" name="plan" value="counseling" className="accent-[#2F4F4F]" checked={formData.plan === 'counseling'} onChange={handleChange} /> 無料カウンセリング</label><label className="flex items-center gap-2 cursor-pointer"><input type="radio" name="plan" value="inquiry" className="accent-[#2F4F4F]" checked={formData.plan === 'inquiry'} onChange={handleChange} /> お問い合わせ</label></div></div></div>
                      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center"><div className="md:col-span-3"><label className="font-bold text-gray-700">ご希望日時(第1希望)</label></div><div className="md:col-span-9 flex flex-col md:flex-row gap-4"><input type="date" name="date1" className="w-full md:w-1/2 p-3 border border-gray-200 rounded-sm bg-[#f5f5f5] focus:outline-none focus:border-[#2F4F4F]" value={formData.date1} onChange={handleChange} /><select name="time1" className="w-full md:w-1/2 p-3 border border-gray-200 rounded-sm bg-[#f5f5f5] focus:outline-none focus:border-[#2F4F4F]" value={formData.time1} onChange={handleChange}><option value="">終日(10:00-21:00)</option><option value="10:00-12:00">10:00-12:00</option><option value="12:00-15:00">12:00-15:00</option><option value="15:00-18:00">15:00-18:00</option><option value="18:00-21:00">18:00-21:00</option></select></div></div>
                      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center"><div className="md:col-span-3"><label className="font-bold text-gray-700">ご希望日時(第2希望)</label></div><div className="md:col-span-9 flex flex-col md:flex-row gap-4"><input type="date" name="date2" className="w-full md:w-1/2 p-3 border border-gray-200 rounded-sm bg-[#f5f5f5] focus:outline-none focus:border-[#2F4F4F]" value={formData.date2} onChange={handleChange} /><select name="time2" className="w-full md:w-1/2 p-3 border border-gray-200 rounded-sm bg-[#f5f5f5] focus:outline-none focus:border-[#2F4F4F]" value={formData.time2} onChange={handleChange}><option value="">終日(10:00-21:00)</option><option value="10:00-12:00">10:00-12:00</option><option value="12:00-15:00">12:00-15:00</option><option value="15:00-18:00">15:00-18:00</option><option value="18:00-21:00">18:00-21:00</option></select></div></div>
                      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start"><div className="md:col-span-3 pt-2"><label className="font-bold text-gray-700">ご質問・ご相談</label></div><div className="md:col-span-9"><textarea name="message" rows="5" className="w-full p-3 border border-gray-200 rounded-sm bg-[#f5f5f5] focus:outline-none focus:border-[#2F4F4F]" placeholder="運動経験の有無や、特に気になる部位などあればご記入ください。" value={formData.message} onChange={handleChange}></textarea></div></div>
@@ -402,11 +432,39 @@
           const [currentPage, setCurrentPage] = useState('home');
 
           const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-          const navigateToBooking = (e) => { if (e) e.preventDefault(); setCurrentPage('booking'); setIsMenuOpen(false); window.scrollTo(0, 0); };
-          const navigateToHome = (e) => { if (e) e.preventDefault(); setCurrentPage('home'); setIsMenuOpen(false); window.scrollTo(0, 0); };
-          const navigateToFAQ = (e) => { if (e) e.preventDefault(); setCurrentPage('faq'); setIsMenuOpen(false); window.scrollTo(0, 0); };
-          const navigateToVoices = (e) => { if (e) e.preventDefault(); setCurrentPage('voices'); setIsMenuOpen(false); window.scrollTo(0, 0); };
-          const navigateToTrainers = (e) => { if (e) e.preventDefault(); setCurrentPage('trainers'); setIsMenuOpen(false); window.scrollTo(0, 0); };
+          
+          // ナビゲーション処理
+          const handleNavClick = (target) => {
+            if (['concept', 'about', 'plan'].includes(target)) {
+              if (currentPage !== 'home') {
+                 setCurrentPage('home');
+                 // ページ切り替え後にスクロール位置を調整する
+                 setTimeout(() => {
+                    const element = document.getElementById(target);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                        // 要素が見つからない場合（レンダリング待ちなど）はトップへ
+                        window.scrollTo(0, 0); 
+                    }
+                 }, 100);
+              } else {
+                 const element = document.getElementById(target);
+                 if (element) element.scrollIntoView({ behavior: 'smooth' });
+              }
+            } else {
+              setCurrentPage(target);
+              window.scrollTo(0, 0);
+            }
+            setIsMenuOpen(false);
+          };
+
+          const navigateToHome = () => handleNavClick('home');
+          // 修正: ページ遷移用関数を定義
+          const navigateToBooking = () => handleNavClick('booking');
+          const navigateToFAQ = () => handleNavClick('faq');
+          const navigateToVoices = () => handleNavClick('voices');
+          const navigateToTrainers = () => handleNavClick('trainers');
 
           useEffect(() => {
             const interval = setInterval(() => {
@@ -424,19 +482,13 @@
                     <span className="text-xs md:text-sm font-medium text-[#2F4F4F] tracking-wider hidden sm:block">-隠れ家 古民家パーソナルジム「豊」-</span>
                 </div>
                 <nav className="hidden md:flex items-center gap-8 lg:gap-12 text-sm tracking-[0.2em] font-medium text-gray-500">
-                  {currentPage === 'home' ? (
-                    <>
-                      <button onClick={() => { setCurrentPage('home'); setTimeout(() => window.location.hash = '#concept', 100); }} className="hover:text-[#2F4F4F] transition-colors">コンセプト</button>
-                      <button onClick={() => { setCurrentPage('home'); setTimeout(() => window.location.hash = '#about', 100); }} className="hover:text-[#2F4F4F] transition-colors">施設について</button>
-                      <button onClick={() => { setCurrentPage('home'); setTimeout(() => window.location.hash = '#plan', 100); }} className="hover:text-[#2F4F4F] transition-colors">料金・プラン</button>
-                      <button onClick={navigateToVoices} className="hover:text-[#2F4F4F] transition-colors">お客様の声</button>
-                      <button onClick={navigateToFAQ} className="hover:text-[#2F4F4F] transition-colors">よくある質問</button>
-                      <button onClick={navigateToTrainers} className="hover:text-[#2F4F4F] transition-colors">トレーナー紹介</button>
-                    </>
-                  ) : (
-                    <button onClick={navigateToHome} className="hover:text-[#2F4F4F] transition-colors">ホームに戻る</button>
-                  )}
-                  <button onClick={navigateToBooking} className="bg-[#2F4F4F] text-white px-8 py-3 rounded-sm hover:bg-[#233a3a] transition-colors tracking-widest text-xs whitespace-nowrap">体験予約</button>
+                  <button onClick={() => handleNavClick('concept')} className="hover:text-[#2F4F4F] transition-colors">コンセプト</button>
+                  <button onClick={() => handleNavClick('about')} className="hover:text-[#2F4F4F] transition-colors">施設について</button>
+                  <button onClick={() => handleNavClick('plan')} className="hover:text-[#2F4F4F] transition-colors">料金・プラン</button>
+                  <button onClick={() => handleNavClick('voices')} className="hover:text-[#2F4F4F] transition-colors">お客様の声</button>
+                  <button onClick={() => handleNavClick('faq')} className="hover:text-[#2F4F4F] transition-colors">よくある質問</button>
+                  <button onClick={() => handleNavClick('trainers')} className="hover:text-[#2F4F4F] transition-colors">トレーナー紹介</button>
+                  <button onClick={() => handleNavClick('booking')} className="bg-[#2F4F4F] text-white px-8 py-3 rounded-sm hover:bg-[#233a3a] transition-colors tracking-widest text-xs whitespace-nowrap">体験予約</button>
                 </nav>
                 <button className="md:hidden text-gray-700 z-50" onClick={toggleMenu}>{isMenuOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}</button>
               </header>
@@ -444,19 +496,14 @@
               {/* Mobile Menu */}
               {isMenuOpen && (
                 <div className="fixed inset-0 bg-[#fcfbf9] z-40 flex flex-col justify-center items-center gap-8 md:hidden transition-opacity duration-300">
-                  <button onClick={navigateToHome} className="text-xl text-[#2F4F4F] serif tracking-widest">ホーム</button>
-                  {currentPage === 'home' && (
-                    <>
-                      <a href="#concept" onClick={toggleMenu} className="text-xl text-[#2F4F4F] serif tracking-widest">コンセプト</a>
-                      <a href="#about" onClick={toggleMenu} className="text-xl text-[#2F4F4F] serif tracking-widest">施設について</a>
-                      <a href="#plan" onClick={toggleMenu} className="text-xl text-[#2F4F4F] serif tracking-widest">料金・プラン</a>
-                      <a href="#access" onClick={toggleMenu} className="text-xl text-[#2F4F4F] serif tracking-widest">アクセス</a>
-                    </>
-                  )}
-                  <button onClick={() => { navigateToVoices(); setIsMenuOpen(false); }} className="text-xl text-[#2F4F4F] serif tracking-widest">お客様の声</button>
-                  <button onClick={() => { navigateToFAQ(); setIsMenuOpen(false); }} className="text-xl text-[#2F4F4F] serif tracking-widest">よくある質問</button>
-                  <button onClick={() => { navigateToTrainers(); setIsMenuOpen(false); }} className="text-xl text-[#2F4F4F] serif tracking-widest">トレーナー紹介</button>
-                  <button onClick={(e) => { navigateToBooking(e); setIsMenuOpen(false); }} className="mt-4 bg-[#2F4F4F] text-white px-10 py-4 rounded-sm tracking-widest">体験予約</button>
+                  <button onClick={() => handleNavClick('home')} className="text-xl text-[#2F4F4F] serif tracking-widest">ホーム</button>
+                  <button onClick={() => handleNavClick('concept')} className="text-xl text-[#2F4F4F] serif tracking-widest">コンセプト</button>
+                  <button onClick={() => handleNavClick('about')} className="text-xl text-[#2F4F4F] serif tracking-widest">施設について</button>
+                  <button onClick={() => handleNavClick('plan')} className="text-xl text-[#2F4F4F] serif tracking-widest">料金・プラン</button>
+                  <button onClick={() => handleNavClick('voices')} className="text-xl text-[#2F4F4F] serif tracking-widest">お客様の声</button>
+                  <button onClick={() => handleNavClick('faq')} className="text-xl text-[#2F4F4F] serif tracking-widest">よくある質問</button>
+                  <button onClick={() => handleNavClick('trainers')} className="text-xl text-[#2F4F4F] serif tracking-widest">トレーナー紹介</button>
+                  <button onClick={() => handleNavClick('booking')} className="mt-4 bg-[#2F4F4F] text-white px-10 py-4 rounded-sm tracking-widest">体験予約</button>
                 </div>
               )}
 
@@ -477,8 +524,8 @@
                     <div className="relative z-10 h-full flex flex-col justify-center px-6 md:px-20 max-w-7xl mx-auto">
                       <div className="flex flex-row-reverse justify-between items-start h-full pb-20 pt-40 md:pt-48">
                         <div className="vertical-text fade-in-up" style={{ animationDelay: '0.5s' }}>
-                          <h1 className="text-5xl md:text-8xl font-bold text-white drop-shadow-sm leading-relaxed tracking-widest serif whitespace-nowrap">整う、身体。<br />還る、自分。</h1>
-                          <p className="text-sm md:text-lg text-white/90 mt-10 md:mt-16 tracking-[0.3em] font-medium drop-shadow-sm border-r border-white/50 pr-4">古民家と自然に囲まれた、<br />大人のための隠れ家ジム</p>
+                          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white drop-shadow-sm leading-relaxed tracking-widest serif whitespace-nowrap">整う、身体。<br />還る、自分。</h1>
+                          <p className="text-xs sm:text-sm md:text-base lg:text-lg text-white/90 mt-8 md:mt-12 lg:mt-16 tracking-[0.3em] font-medium drop-shadow-sm border-r border-white/50 pr-4">古民家と自然に囲まれた、<br />大人のための隠れ家ジム</p>
                         </div>
                       </div>
                     </div>
@@ -492,8 +539,8 @@
                         <div className="flex flex-col md:flex-row gap-20 items-center">
                           <div className="w-full md:w-1/2 space-y-12">
                             <div><span className="text-[#2F4F4F] text-xs md:text-xs tracking-[0.5em] font-bold block mb-6 uppercase border-b border-[#2F4F4F]/30 w-16 pb-2">Concept</span><h2 className="text-4xl md:text-6xl serif leading-tight text-gray-900 font-medium">完全個室。<br />マンツーマンで<br />理想を叶える。</h2></div>
-                            <p className="text-gray-600 leading-loose font-light text-base md:text-lg tracking-wide">ストレス社会で頑張るあなたへ。<br /><br />私たちは、心身の不調の根本原因となるストレスと生活習慣の乱れに着目します。<br />豊ジムは、ただ体を鍛える場所ではありません。正しい運動と食事の知識を、あなたのペースとライフスタイルに合わせて丁寧に指導し、豊かな人生を取り戻す「心の拠り所」となることを目指しています。<br />パーソナルジム豊で、自分に自信を持ち、充実した毎日を送るための確かな基盤を築きましょう。</p>
-                            <div className="pt-4"><a href="#about" className="group inline-flex items-center gap-4 text-[#2F4F4F] border-b border-[#2F4F4F] pb-1 hover:opacity-70 transition-opacity"><span className="serif tracking-widest text-lg">「豊」のこだわり</span><ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2"/></a></div>
+                            <p className="text-gray-600 leading-loose font-light text-base md:text-lg tracking-wide">ストレス社会で頑張るあなたへ。<br /><br />私たちは、心身の不調の根本原因となるストレスと生活習慣の乱れに着目します。<br />豊ジムは、ただ体を鍛える場所ではありません。正しい運動と食事の知識を、あなたのペースとライフスタイルに合わせて丁寧に指導し、豊かな人生を手にする「心の拠り所」となることを目指しています。<br />パーソナルジム豊で、自分に自信を持ち、充実した毎日を送るための確かな基盤を築きましょう。</p>
+                            <div className="pt-4"><button onClick={() => handleNavClick('about')} className="group inline-flex items-center gap-4 text-[#2F4F4F] border-b border-[#2F4F4F] pb-1 hover:opacity-70 transition-opacity"><span className="serif tracking-widest text-lg">「豊」のこだわり</span><ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2"/></button></div>
                           </div>
                           <div className="w-full md:w-1/2 relative">
                             <div className="absolute -top-10 -right-10 w-2/3 h-2/3 bg-[#8c7b6c]/10 -z-10"></div>
@@ -545,24 +592,24 @@
                         <div className="mt-8 flex items-center justify-center gap-3">
                             <div className="relative">
                               <Crown className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-10 h-10 text-[#d4af37] fill-[#d4af37]" />
-                              <h3 className="text-3xl md:text-5xl font-black italic tracking-wider text-[#d4af37] drop-shadow-sm flex items-center gap-2"><span className="text-2xl">🌿</span>柏エリア最安値<span className="text-2xl">🌿</span></h3>
+                              <h3 className="text-3xl md:text-5xl font-black italic tracking-wider text-[#d4af37] drop-shadow-sm flex items-center gap-2"><span className="text-2xl">🌿</span>柏エリア屈指のコスパ<span className="text-2xl">🌿</span></h3>
                             </div>
                         </div>
-                        <div className="text-center mt-4"><p className="mb-2 font-bold text-[#2F4F4F] text-sm">「なぜこんなに安いの？」と思った方へ</p><button onClick={navigateToFAQ} className="bg-white border border-[#2F4F4F] text-[#2F4F4F] px-6 py-2 rounded-full hover:bg-[#2F4F4F] hover:text-white transition-colors flex items-center gap-2 mx-auto shadow-sm text-sm"><HelpCircle size={16} />安さの理由はこちら</button></div>
+                        <div className="text-center mt-4"><p className="mb-2 font-bold text-[#2F4F4F] text-sm">「なぜこんなに安いの？」と思った方へ</p><button onClick={() => handleNavClick('faq')} className="bg-white border border-[#2F4F4F] text-[#2F4F4F] px-6 py-2 rounded-full hover:bg-[#2F4F4F] hover:text-white transition-colors flex items-center gap-2 mx-auto shadow-sm text-sm"><HelpCircle size={16} />安さの理由はこちら</button></div>
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {/* 体験プラン */}
-                        <FadeInSection><div className="border border-gray-200 bg-white p-8 md:p-12 text-center hover:border-[#2F4F4F] transition-all duration-500 shadow-sm hover:shadow-2xl h-full flex flex-col justify-between relative overflow-hidden"><div className="absolute -right-12 top-6 bg-[#8c7b6c] text-white py-1 px-12 rotate-45 text-sm font-bold tracking-wider shadow-md">オープン記念</div><div><h3 className="serif text-2xl mb-4 tracking-widest text-[#2F4F4F]">体験プラン</h3><p className="text-xs text-gray-400 mb-8 tracking-widest">お一人様1回限り / 90分</p><div className="flex flex-col justify-center items-center mb-8"><span className="text-lg text-gray-400 line-through decoration-gray-400 mb-1">¥3,000</span><span className="text-5xl font-bold text-[#2F4F4F] tracking-wider font-[Shippori_Mincho]">無料</span></div><ul className="text-left text-sm text-gray-600 space-y-4 mb-10 w-fit mx-auto font-light"><li className="flex items-center gap-4"><div className="w-1.5 h-1.5 bg-[#8c7b6c] rounded-full"></div> カウンセリング 30分</li><li className="flex items-center gap-4"><div className="w-1.5 h-1.5 bg-[#8c7b6c] rounded-full"></div> パーソナルトレーニング 45分</li><li className="flex items-center gap-4"><div className="w-1.5 h-1.5 bg-[#8c7b6c] rounded-full"></div> ミネラルウォーター無料</li></ul></div><button onClick={navigateToBooking} className="block w-full bg-[#1a1a1a] text-white py-4 text-sm tracking-[0.2em] hover:bg-[#2F4F4F] transition-colors duration-300">申し込む</button></div></FadeInSection>
+                        {/* 体験プラン: タオル・ウェア無料削除、補填追加 */}
+                        <FadeInSection><div className="border border-gray-200 bg-white p-8 md:p-12 text-center hover:border-[#2F4F4F] transition-all duration-500 shadow-sm hover:shadow-2xl h-full flex flex-col justify-between relative overflow-hidden"><div className="absolute -right-12 top-6 bg-[#8c7b6c] text-white py-1 px-12 rotate-45 text-sm font-bold tracking-wider shadow-md">オープン記念</div><div><h3 className="serif text-2xl mb-4 tracking-widest text-[#2F4F4F]">体験プラン</h3><p className="text-xs text-gray-400 mb-8 tracking-widest">お一人様1回限り / 90分</p><div className="flex flex-col justify-center items-center mb-8"><span className="text-lg text-gray-400 line-through decoration-gray-400 mb-1">¥3,300</span><span className="text-5xl font-bold text-[#2F4F4F] tracking-wider font-[Shippori_Mincho]">無料</span></div><ul className="text-left text-sm text-gray-600 space-y-4 mb-10 w-fit mx-auto font-light"><li className="flex items-center gap-4"><div className="w-1.5 h-1.5 bg-[#8c7b6c] rounded-full"></div> カウンセリング 30分</li><li className="flex items-center gap-4"><div className="w-1.5 h-1.5 bg-[#8c7b6c] rounded-full"></div> パーソナルトレーニング 45分</li><li className="flex items-center gap-4"><div className="w-1.5 h-1.5 bg-[#8c7b6c] rounded-full"></div> ミネラルウォーター無料</li></ul></div><button onClick={() => handleNavClick('booking')} className="block w-full bg-[#1a1a1a] text-white py-4 text-sm tracking-[0.2em] hover:bg-[#2F4F4F] transition-colors duration-300">申し込む</button></div></FadeInSection>
                         
                         {/* スタンダード */}
-                        <FadeInSection delay={200}><div className="border border-gray-200 bg-white p-8 md:p-12 text-center relative overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 h-full flex flex-col justify-between"><div><div className="absolute top-0 right-0 bg-[#8c7b6c] text-white text-xs px-6 py-2 tracking-widest font-bold">一番人気</div><h3 className="serif text-2xl mb-4 tracking-widest text-[#2F4F4F]">スタンダード</h3><p className="text-xs text-gray-400 mb-8 tracking-widest">月額制 / 月4回</p><div className="flex justify-center items-baseline gap-2 mb-8"><span className="text-lg text-gray-500">¥</span><span className="text-5xl font-light text-[#2F4F4F] tracking-wider font-[Shippori_Mincho]">29,000</span><span className="text-sm text-gray-500">(税抜)</span></div><ul className="text-left text-sm text-gray-600 space-y-4 mb-10 w-fit mx-auto font-light"><li className="flex items-center gap-4"><div className="w-1.5 h-1.5 bg-[#8c7b6c] rounded-full"></div> 完全オーダーメイドメニュー</li><li className="flex items-center gap-4"><div className="w-1.5 h-1.5 bg-[#8c7b6c] rounded-full"></div> 食事指導LINEサポート<span className="text-xs">（有効期限3ヶ月）</span></li><li className="flex items-center gap-4"><div className="w-1.5 h-1.5 bg-[#8c7b6c] rounded-full"></div> ミネラルウォーター無料</li></ul></div><button onClick={navigateToBooking} className="block w-full border border-[#1a1a1a] text-[#1a1a1a] py-4 text-sm tracking-[0.2em] hover:bg-[#1a1a1a] hover:text-white transition-colors duration-300">詳細を見る</button></div></FadeInSection>
+                        <FadeInSection delay={200}><div className="border border-gray-200 bg-white p-8 md:p-12 text-center relative overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 h-full flex flex-col justify-between"><div><div className="absolute top-0 right-0 bg-[#8c7b6c] text-white text-xs px-6 py-2 tracking-widest font-bold">一番人気</div><h3 className="serif text-2xl mb-4 tracking-widest text-[#2F4F4F]">スタンダード</h3><p className="text-xs text-gray-400 mb-8 tracking-widest">月額制 / 月4回<span className="ml-2 bg-[#8c7b6c]/10 px-2 py-0.5 rounded text-[#8c7b6c]">有効期限3ヶ月</span></p><div className="flex justify-center items-baseline gap-2 mb-8"><span className="text-5xl font-light text-[#2F4F4F] tracking-wider font-[Shippori_Mincho]">31,900</span><span className="text-sm text-gray-500">(税込)</span></div><ul className="text-left text-sm text-gray-600 space-y-4 mb-10 w-fit mx-auto font-light"><li className="flex items-center gap-4"><div className="w-1.5 h-1.5 bg-[#8c7b6c] rounded-full"></div> 完全オーダーメイドメニュー</li><li className="flex items-center gap-4"><div className="w-1.5 h-1.5 bg-[#8c7b6c] rounded-full"></div> 食事管理無料(LINEサポート)</li><li className="flex items-center gap-4"><div className="w-1.5 h-1.5 bg-[#8c7b6c] rounded-full"></div> ミネラルウォーター無料</li></ul></div><button onClick={() => handleNavClick('booking')} className="block w-full border border-[#1a1a1a] text-[#1a1a1a] py-4 text-sm tracking-[0.2em] hover:bg-[#1a1a1a] hover:text-white transition-colors duration-300">詳細を見る</button></div></FadeInSection>
                         
                         {/* 回数券 */}
-                        <FadeInSection delay={400}><div className="border border-gray-200 bg-white p-8 md:p-12 text-center hover:border-[#2F4F4F] transition-all duration-500 shadow-sm hover:shadow-2xl h-full flex flex-col justify-between"><div><h3 className="serif text-2xl mb-4 tracking-widest text-[#2F4F4F]">回数券</h3><p className="text-xs text-gray-400 mb-8 tracking-widest">回数券 / 8回分</p><div className="flex justify-center items-baseline gap-2 mb-8 whitespace-nowrap"><span className="text-lg text-gray-500">¥</span><span className="text-5xl font-light text-[#2F4F4F] tracking-wider font-[Shippori_Mincho]">58,000</span><span className="text-sm text-gray-500">(税抜)</span></div><ul className="text-left text-sm text-gray-600 space-y-4 mb-10 w-fit mx-auto font-light"><li className="flex items-center gap-4"><div className="w-1.5 h-1.5 bg-[#8c7b6c] rounded-full"></div> 自分のペースで通える</li><li className="flex items-center gap-4"><div className="w-1.5 h-1.5 bg-[#8c7b6c] rounded-full"></div> ミネラルウォーター無料</li><li className="flex items-center gap-4"><div className="w-1.5 h-1.5 bg-[#8c7b6c] rounded-full"></div> 完全オーダーメイドメニュー</li></ul></div><button onClick={navigateToBooking} className="block w-full border border-[#1a1a1a] text-[#1a1a1a] py-4 text-sm tracking-[0.2em] hover:bg-[#1a1a1a] hover:text-white transition-colors duration-300">詳細を見る</button></div></FadeInSection>
+                        <FadeInSection delay={400}><div className="border border-gray-200 bg-white p-8 md:p-12 text-center hover:border-[#2F4F4F] transition-all duration-500 shadow-sm hover:shadow-2xl h-full flex flex-col justify-between"><div><h3 className="serif text-2xl mb-4 tracking-widest text-[#2F4F4F]">回数券</h3><p className="text-xs text-gray-400 mb-8 tracking-widest">回数券 / 8回分</p><div className="flex justify-center items-baseline gap-2 mb-8 whitespace-nowrap"><span className="text-5xl font-light text-[#2F4F4F] tracking-wider font-[Shippori_Mincho]">63,800</span><span className="text-sm text-gray-500">(税込)</span></div><ul className="text-left text-sm text-gray-600 space-y-4 mb-10 w-fit mx-auto font-light"><li className="flex items-center gap-4"><div className="w-1.5 h-1.5 bg-[#8c7b6c] rounded-full"></div> 自分のペースで通える</li><li className="flex items-center gap-4"><div className="w-1.5 h-1.5 bg-[#8c7b6c] rounded-full"></div> ミネラルウォーター無料</li><li className="flex items-center gap-4"><div className="w-1.5 h-1.5 bg-[#8c7b6c] rounded-full"></div> 完全オーダーメイドメニュー</li></ul></div><button onClick={() => handleNavClick('booking')} className="block w-full border border-[#1a1a1a] text-[#1a1a1a] py-4 text-sm tracking-[0.2em] hover:bg-[#1a1a1a] hover:text-white transition-colors duration-300">詳細を見る</button></div></FadeInSection>
                       </div>
                       {/* モニターコース追加 */}
                       <FadeInSection delay={600}>
-                        <div className="mt-16 bg-[#f0efe9] p-8 md:p-12 rounded-sm text-center shadow-sm hover:shadow-md transition-shadow cursor-pointer" onClick={navigateToBooking}>
+                        <div className="mt-16 bg-[#f0efe9] p-8 md:p-12 rounded-sm text-center shadow-sm hover:shadow-md transition-shadow cursor-pointer" onClick={() => handleNavClick('booking')}>
                           <h3 className="serif text-2xl mb-4 tracking-widest text-[#2F4F4F] font-bold">モニターコースでさらにお得に！</h3>
                           <p className="text-gray-600 mb-6">ビフォーアフターの写真や感想をご提供いただける方限定の特別価格をご用意しております。</p>
                           <span className="inline-flex items-center gap-2 text-[#8c7b6c] border-b border-[#8c7b6c] pb-1 hover:opacity-70 transition-opacity tracking-widest font-medium">くわしくはこちら <ArrowRight className="w-4 h-4" /></span>
@@ -588,10 +635,9 @@
                           {/* 住所変更 */}
                           <div><p className="font-medium mb-1 text-gray-800">所在地</p><p>〒277-0861<br />千葉県柏市高田549<br /><span className="text-xs text-gray-400">(詳細な住所はご予約時にお伝えします)</span></p></div>
                           <div><p className="font-medium mb-1 text-gray-800">営業時間</p><p>9:00 - 21:00<br />定休日: 不定休</p></div>
-                          <div><p className="font-medium mb-1 text-gray-800">電車でお越しの方</p><ul className="list-none space-y-1"><li>• 柏駅より徒歩15分</li><li>• バス利用の場合: 柏駅東口より約5分</li></ul></div>
                           <div><p className="font-medium mb-1 text-gray-800">お車でお越しの方</p><ul className="list-none space-y-1"><li>• 常磐自動車道「柏IC」より約10分</li><li>• 駐車場: 完備(無料)</li></ul></div>
                         </div>
-                        <div><a href="tel:0300000000" className="text-3xl serif text-[#2F4F4F] hover:opacity-70 transition-opacity tracking-widest border-b border-transparent hover:border-[#2F4F4F]">03-0000-0000</a></div>
+                        <div><a href="tel:08028379190" className="text-3xl serif text-[#2F4F4F] hover:opacity-70 transition-opacity tracking-widest border-b border-transparent hover:border-[#2F4F4F]">080-2837-9190</a></div>
                       </div>
                     </div>
                   </section>
@@ -632,12 +678,12 @@
                 <div className="max-w-6xl mx-auto">
                   <div className="mb-10 flex justify-center"><img src={LOGO_URL} alt="豊 YUTAKA Logo" className="h-16 w-auto brightness-0 invert opacity-80" /></div>
                   <nav className="flex flex-wrap justify-center gap-10 text-xs tracking-[0.2em] mb-16 opacity-70">
-                    <button onClick={() => { setCurrentPage('home'); setTimeout(() => window.location.hash = '#concept', 100); }} className="hover:text-white hover:opacity-100 transition-all">コンセプト</button>
-                    <button onClick={() => { setCurrentPage('home'); setTimeout(() => window.location.hash = '#about', 100); }} className="hover:text-white hover:opacity-100 transition-all">施設について</button>
-                    <button onClick={() => { setCurrentPage('home'); setTimeout(() => window.location.hash = '#plan', 100); }} className="hover:text-white hover:opacity-100 transition-all">料金・プラン</button>
-                    <button onClick={navigateToVoices} className="hover:text-white hover:opacity-100 transition-all">お客様の声</button>
-                    <button onClick={navigateToFAQ} className="hover:text-white hover:opacity-100 transition-all">よくある質問</button>
-                    <button onClick={navigateToTrainers} className="hover:text-white hover:opacity-100 transition-all">トレーナー紹介</button>
+                    <button onClick={() => handleNavClick('concept')} className="hover:text-white hover:opacity-100 transition-all">コンセプト</button>
+                    <button onClick={() => handleNavClick('about')} className="hover:text-white hover:opacity-100 transition-all">施設について</button>
+                    <button onClick={() => handleNavClick('plan')} className="hover:text-white hover:opacity-100 transition-all">料金・プラン</button>
+                    <button onClick={() => handleNavClick('voices')} className="hover:text-white hover:opacity-100 transition-all">お客様の声</button>
+                    <button onClick={() => handleNavClick('faq')} className="hover:text-white hover:opacity-100 transition-all">よくある質問</button>
+                    <button onClick={() => handleNavClick('trainers')} className="hover:text-white hover:opacity-100 transition-all">トレーナー紹介</button>
                     <a href="#" className="hover:text-white hover:opacity-100 transition-all">プライバシーポリシー</a>
                   </nav>
                   <p className="text-[10px] opacity-30 tracking-wider">&copy; 2024 YUTAKA Personal Gym. All Rights Reserved.</p>
