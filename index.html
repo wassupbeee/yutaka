@@ -380,8 +380,40 @@
         const BookingForm = ({ onBack }) => {
           const [formData, setFormData] = useState({ name: '', furigana: '', gender: 'male', age: '', email: '', phone: '', plan: 'free_trial', date1: '', time1: '', date2: '', time2: '', message: '', agreed: false });
           const [isSubmitted, setIsSubmitted] = useState(false);
+          
+          // ▼▼▼ 設定済みURL ▼▼▼
+          const FORMSPREE_ENDPOINT = "https://formspree.io/f/meeqqjvg"; 
+
           const handleChange = (e) => { const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value; setFormData({ ...formData, [e.target.name]: value }); };
-          const handleSubmit = (e) => { e.preventDefault(); setTimeout(() => { setIsSubmitted(true); window.scrollTo(0, 0); }, 500); };
+
+          const handleSubmit = async (e) => {
+            e.preventDefault();
+            
+            try {
+                // ここでFormspreeにデータを送信します
+                const response = await fetch(FORMSPREE_ENDPOINT, {
+                    method: 'POST',
+                    body: JSON.stringify(formData),
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    // 送信成功！自作の完了画面へ切り替えます
+                    setIsSubmitted(true);
+                    window.scrollTo(0, 0);
+                } else {
+                    // 送信失敗（Formspree側のエラーなど）
+                    alert("送信に失敗しました。時間をおいて再度お試しください。");
+                }
+            } catch (error) {
+                // 通信エラーなど
+                alert("エラーが発生しました。ネットワーク環境をご確認ください。");
+            }
+          };
+
           const RequiredLabel = () => (<span className="bg-red-600 text-white text-[10px] px-2 py-0.5 rounded-sm ml-2 font-normal align-middle">必須</span>);
 
           if (isSubmitted) {
@@ -400,6 +432,7 @@
             <div className="min-h-screen bg-[#fcfbf9] pt-32 pb-20 px-6">
               <div className="max-w-4xl mx-auto">
                 <div className="mb-10"><button onClick={onBack} className="text-gray-500 hover:text-[#2F4F4F] flex items-center gap-2 mb-4"><ChevronRight className="rotate-180" size={16} /> 戻る</button><h2 className="text-3xl serif text-[#2F4F4F] border-l-4 border-[#8c7b6c] pl-4">体験予約・お問い合わせ</h2></div>
+                
                 <form onSubmit={handleSubmit} className="bg-white p-8 md:p-12 rounded-sm shadow-lg text-sm">
                   <div className="grid grid-cols-1 gap-y-8">
                      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center"><div className="md:col-span-3"><label className="font-bold text-gray-700">お名前<RequiredLabel /></label></div><div className="md:col-span-9"><input type="text" name="name" placeholder="山田 太郎" className="w-full p-3 border border-gray-200 rounded-sm bg-red-50 focus:outline-none focus:border-[#2F4F4F]" value={formData.name} onChange={handleChange} required /></div></div>
