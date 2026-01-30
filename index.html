@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -517,6 +518,12 @@ const handleSubmit = async (e) => {
             window.scrollTo(0, 0);
             // ▼この一行を追加！
             window.location.hash = "thanks"; 
+
+            // 520行目あたりに追加
+gtag('event', 'conversion', {
+  'send_to': 'AW-17808849922/y9iYCKbUru0bEIL49atC'
+});
+
         } else {
             alert("送信に失敗しました。");
         }
